@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Individual Assessment - Market Knowledge</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom baby pink background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDDDE6; /* A soft baby pink */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top to prevent jumping */
+            min-height: 100vh;
+            padding: 2rem 1rem; /* Consistent padding on all sides */
+            box-sizing: border-box;
+            color: #1A202C; /* Dark gray for general text, close to black */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Styles for feedback */
+        .correct-answer-feedback {
+            color: #10B981; /* Green-600 */
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .incorrect-answer-feedback {
+            color: #EF4444; /* Red-500 */
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        .selected-correct {
+            background-color: #D1FAE5; /* Green-100 */
+            border-color: #10B981; /* Green-600 */
+        }
+        .selected-incorrect {
+            background-color: #FEE2E2; /* Red-100 */
+            border-color: #EF4444; /* Red-500 */
+        }
+        /* Ensure labels have consistent height and alignment */
+        .options-container label {
+            display: flex;
+            align-items: center; /* Vertically center radio button and text */
+            padding: 0.75rem 0.5rem; /* More vertical padding for options */
+            border: 1px solid transparent; /* Consistent border for all states */
+        }
+        .options-container label:hover {
+            background-color: #F3F4F6; /* Light gray on hover */
+        }
+        /* Adjust text colors to black */
+        h1, h2, p, span, label {
+            color: #1A202C; /* Near black for all headings, paragraphs, spans, and labels */
+        }
+        /* Override specific elements if needed to ensure black text */
+        .text-gray-900, .text-gray-800, .text-gray-700, .text-gray-600 {
+            color: #1A202C !important;
+        }
+        .text-blue-600 { /* For radio button accent */
+            color: #D147A3 !important; /* A darker pink for radio buttons */
+        }
+        .focus\:ring-blue-500:focus {
+            --tw-ring-color: #D147A3 !important; /* Focus ring color */
+        }
+        .focus\:border-blue-500:focus {
+            border-color: #D147A3 !important; /* Focus border color */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="max-w-3xl w-full bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+        <!-- Company Branding -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-2">OnePaper Research Analyst Private Limited</h2>
+            <a href="https://www.onepaper.in/" target="_blank" class="text-lg text-blue-600 hover:underline">https://www.onepaper.in/</a>
+        </div>
+
+        <h1 class="text-4xl font-extrabold mb-6 text-center">Market Knowledge Assessment</h1>
+        <p class="text-lg mb-8 text-center">
+            Answer the questions below to test your understanding of market concepts. You have 30 minutes to complete the assessment.
+        </p>
+
+        <!-- Timer Display -->
+        <div class="text-center mb-8 p-4 bg-pink-100 rounded-lg shadow-sm border border-pink-200">
+            <p class="text-xl font-semibold text-pink-800">Time Remaining: <span id="timer" class="font-bold text-2xl">30:00</span></p>
+        </div>
+
+        <form id="assessmentForm" class="space-y-8">
+            <!-- Question 1: Full form of SEBI -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">1. What is the full form of SEBI?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q1" value="Security and Exchange Board of India" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Security and Exchange Board of India</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q1" value="Securities and Exchange Board of India" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Securities and Exchange Board of India</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q1" value="State and Exchange Board of India" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">State and Exchange Board of India</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q1" value="Securities and Election Board of India" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Securities and Election Board of India</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 2: Meaning of Equity -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">2. Meaning of Equity</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q2" value="Ownership of Shares only" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Ownership of Shares only</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q2" value="Ownership of the whole Company" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Ownership of the whole Company</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q2" value="Ownership of a Stock in a Company" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Ownership of a Stock in a Company</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 3: Lot size of Nifty 50 -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">3. What is the lot size of Nifty 50?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q3" value="50" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">50</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q3" value="100" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">100</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q3" value="75" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">75</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q3" value="25" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">25</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 4: Full form of CRM -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">4. Full form of CRM</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q4" value="customer relationship management" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">customer relationship management</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q4" value="customer relationship manager" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">customer relationship manager</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q4" value="custom relationship management" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">custom relationship management</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q4" value="customer risk management" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">customer risk management</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 5: Identify the false statement. -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">5. Identify the false statement.</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q5" value="Futures contracts trade on a financial exchange." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Futures contracts trade on a financial exchange.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q5" value="Futures contracts are marked to market." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Futures contracts are marked to market.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q5" value="Futures contracts allow fewer delivery options than forward contracts." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Futures contracts allow fewer delivery options than forward contracts.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q5" value="Futures contracts are more liquid than forward contracts." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Futures contracts are more liquid than forward contracts.</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 6: Put option break even price -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">6. A put option with a strike price of Rs. 1176 is trading at a premium of Rs. 36. What will be the price at which it will break even for the buyer of the option?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q6" value="Rs. 1212" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Rs. 1212</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q6" value="Rs. 1194" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Rs. 1194</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q6" value="Rs. 1140" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Rs. 1140</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q6" value="Rs. 1176" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Rs. 1176</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 7: Service agreement contract details -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">7. What details would you find in the service agreement contract?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q7" value="Customer details, Service details, Sebi regulations, Terms & Conditions." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Customer details, Service details, Sebi regulations, Terms & Conditions.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q7" value="Customer details, Service details, Company details, Terms & Conditions" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Customer details, Service details, Company details, Terms & Conditions</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q7" value="Customer details, Service details, Sebi regulations, Sebi Circular." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Customer details, Service details, Sebi regulations, Sebi Circular.</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 8: Open position in options market -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">8. An open position in the options market exists only for</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q8" value="long calls" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">long calls</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q8" value="long puts" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">long puts</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q8" value="short calls and long puts" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">short calls and long puts</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q8" value="long position and short position in both calls and puts" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">long position and short position in both calls and puts</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 9: Buy ITC with SL and Target -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">9. Buy ITC from 1200 with SL and Target of 1%? What is the SL and Target</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q9" value="Target 1212, SL 1188" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Target 1212, SL 1188</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q9" value="Target 1201, SL 1199" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Target 1201, SL 1199</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q9" value="Target 1220, SL1180" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Target 1220, SL1180</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q9" value="Target 1112, SL 1188" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Target 1112, SL 1188</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 10: Speculator with bullish view -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">10. A speculator with a bullish view on a security can</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q10" value="buy stock futures" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">buy stock futures</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q10" value="buy index futures" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">buy index futures</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q10" value="sell stock futures" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">sell stock futures</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q10" value="sell index futures" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">sell index futures</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 11: Investment for RELIANCE CALL -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">11. A Person wants to Buy 5 lot RELIANCE 2500 CALL, MAR contract at Rs.25. What is the investment require for this? (L-500)</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q11" value="60,500" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">60,500</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q11" value="62,000" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">62,000</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q11" value="65000" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">65000</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q11" value="62,500" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">62,500</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 12: How many NIFTY lots can Ratan buy? -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">12. Ratan has Rs. 50,000 in his Demart account. Ratan wants to buy NIFTY 25100(24 JUL) CALL at Rs. 180. Current market price of NIFTY is 25090. How many lots he can Buy?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q12" value="4" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">4</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q12" value="5" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">5</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q12" value="3" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">3</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q12" value="2" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">2</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 13: Bank Nifty expiry -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">13. Bank Nifty 56800(JUL)CALL position will expire on</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q13" value="Thursday of last week" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Thursday of last week</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q13" value="Friday of last week" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Friday of last week</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q13" value="Thursday of first week" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Thursday of first week</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q13" value="Thursday of every week" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Thursday of every week</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 14: Put position for profit -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">14. If customer has taken put position in option, then for profit it's should</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q14" value="go up" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">go up</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q14" value="go down" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">go down</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 15: Lot size of crude Oil -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">15. Lot size of crude Oil</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q15" value="1000" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">1000</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q15" value="500" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">500</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q15" value="100" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">100</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q15" value="30" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">30</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 16: Permissible to tell customer about loss recovery -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">16. Is it permissible to tell a customer that our recommendations will ensure that their losses are recovered.</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q16" value="Yes" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Yes</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q16" value="No" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">No</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 17: Can Mr. A buy HUL (Dec) future contract in September? -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">17. Can Mr. A buy a HUL (Dec) future contract in the month of September?</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q17" value="Yes" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Yes</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q17" value="No" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">No</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 18: Service Agreement Sign within ___ days -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">18. Service Agreement has to Sign within ___ days</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q18" value="Mandatorily on same day as date of payment." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Mandatorily on same day as date of payment.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q18" value="Within 1 months’ time." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Within 1 months’ time.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q18" value="Same day as date of payment but can be done in a couple of days in exceptional situations." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Same day as date of payment but can be done in a couple of days in exceptional situations.</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q18" value="After service tenure of client has ended." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">After service tenure of client has ended.</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 19: Process of issuing share of a private company to the public -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">19. The process of issuing share of a private company to the public is called as:</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q19" value="Right issue" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Right issue</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q19" value="Bonus issue" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Bonus issue</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q19" value="Initial Public Offer" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Initial Public Offer</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q19" value="Company issue" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Company issue</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- Question 20: Module to send bank details to customer -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100 question-block">
+                <p class="text-xl font-semibold mb-4">20. In which module you can send bank details to the customer</p>
+                <div class="space-y-3 options-container">
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q20" value="Lead Module" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Lead Module</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q20" value="Deal Module" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Deal Module</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q20" value="Quotation Module" class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Quotation Module</span>
+                    </label>
+                    <label class="cursor-pointer rounded-md transition duration-150 ease-in-out">
+                        <input type="radio" name="q20" value="Sales-Order Module." class="form-radio h-5 w-5 rounded-full focus:ring-blue-500">
+                        <span class="ml-3 text-lg">Sales-Order Module.</span>
+                    </label>
+                </div>
+                <div class="feedback-container mt-4 text-sm"></div>
+            </div>
+
+            <!-- User Name Input -->
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+                <label for="userName" class="block text-xl font-semibold mb-2">Your Name:</label>
+                <input type="text" id="userName" name="userName" placeholder="Enter your full name" class="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-lg">
+            </div>
+
+            <button type="submit" id="submitButton" class="w-full bg-black hover:bg-gray-800 text-white font-bold py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-black focus:ring-opacity-50 text-xl">
+                Submit Assessment
+            </button>
+        </form>
+
+        <!-- Score Display Section -->
+        <div id="scoreResult" class="mt-10 p-8 bg-pink-100 rounded-xl shadow-lg border border-pink-200 hidden">
+            <h2 class="text-3xl font-extrabold text-pink-800 mb-4 text-center">Assessment Results</h2>
+            <p class="text-2xl text-pink-700 font-semibold mb-4 text-center">Your Score: <span id="scoreValue" class="text-pink-900"></span> / <span id="totalQuestions"></span></p>
+            <p id="feedbackMessage" class="text-xl text-pink-600 text-center mb-6"></p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <button id="whatsappTrainerButton" class="bg-pink-700 hover:bg-pink-800 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-500 focus:ring-opacity-50 text-lg">
+                    Send Score via WhatsApp
+                </button>
+            </div>
+        </div>
+
+        <!-- Custom Modal for Alerts -->
+        <div id="customAlertModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden">
+            <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center border border-gray-200">
+                <p id="customAlertMessage" class="text-xl font-semibold text-gray-800 mb-6"></p>
+                <button id="customAlertCloseButton" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-black focus:ring-opacity-50 text-lg">
+                    OK
+                </button>
+            </div>
+        </div>
+
+        <!-- "Made by" Footer -->
+        <div class="mt-10 text-center text-sm text-gray-700">
+            <p>Made by Rajen Patwari</p>
+        </div>
+    </div>
+
+    <script>
+        // Define the questions, correct answers, and points
+        const questions = [
+            {
+                name: "q1",
+                type: "radio",
+                correctAnswer: "Securities and Exchange Board of India",
+                points: 1,
+                questionText: "What is the full form of SEBI",
+                options: ["Security and Exchange Board of India", "Securities and Exchange Board of India", "State and Exchange Board of India", "Securities and Election Board of India"]
+            },
+            {
+                name: "q2",
+                type: "radio",
+                correctAnswer: "Ownership of a Stock in a Company",
+                points: 1,
+                questionText: "Meaning of Equity",
+                options: ["Ownership of Shares only", "Ownership of the whole Company", "Ownership of a Stock in a Company"]
+            },
+            {
+                name: "q3",
+                type: "radio",
+                correctAnswer: "75",
+                points: 1,
+                questionText: "What is the lot size of Nifty 50?",
+                options: ["50", "100", "75", "25"]
+            },
+            {
+                name: "q4",
+                type: "radio",
+                correctAnswer: "customer relationship management",
+                points: 1,
+                questionText: "Full form of CRM",
+                options: ["customer relationship management", "customer relationship manager", "custom relationship management", "customer risk management"]
+            },
+            {
+                name: "q5",
+                type: "radio",
+                correctAnswer: "Futures contracts allow fewer delivery options than forward contracts.",
+                points: 1,
+                questionText: "Identify the false statement.",
+                options: ["Futures contracts trade on a financial exchange.", "Futures contracts are marked to market.", "Futures contracts allow fewer delivery options than forward contracts.", "Futures contracts are more liquid than forward contracts."]
+            },
+            {
+                name: "q6",
+                type: "radio",
+                correctAnswer: "Rs. 1140",
+                points: 1,
+                questionText: "A put option with a strike price of Rs. 1176 is trading at a premium of Rs. 36. What will be the price at which it will break even for the buyer of the option?",
+                options: ["Rs. 1212", "Rs. 1194", "Rs. 1140", "Rs. 1176"]
+            },
+            {
+                name: "q7",
+                type: "radio",
+                correctAnswer: "Customer details, Service details, Company details, Terms & Conditions",
+                points: 1,
+                questionText: "What details would you find in the service agreement contract?",
+                options: ["Customer details, Service details, Sebi regulations, Terms & Conditions.", "Customer details, Service details, Company details, Terms & Conditions", "Customer details, Service details, Sebi regulations, Sebi Circular."]
+            },
+            {
+                name: "q8",
+                type: "radio",
+                correctAnswer: "long position and short position in both calls and puts",
+                points: 1,
+                questionText: "An open position in the options market exists only for",
+                options: ["long calls", "long puts", "short calls and long puts", "long position and short position in both calls and puts"]
+            },
+            {
+                name: "q9",
+                type: "radio",
+                correctAnswer: "Target 1212, SL 1188",
+                points: 1,
+                questionText: "Buy ITC from 1200 with SL and Target of 1%? What is the SL and Target",
+                options: ["Target 1212, SL 1188", "Target 1201, SL 1199", "Target 1220, SL1180", "Target 1112, SL 1188"]
+            },
+            {
+                name: "q10",
+                type: "radio",
+                correctAnswer: "buy stock futures",
+                points: 1,
+                questionText: "A speculator with a bullish view on a security can",
+                options: ["buy stock futures", "buy index futures", "sell stock futures", "sell index futures"]
+            },
+            {
+                name: "q11",
+                type: "radio",
+                correctAnswer: "62,500",
+                points: 1,
+                questionText: "A Person wants to Buy 5 lot RELIANCE 2500 CALL, MAR contract at Rs.25. What is the investment require for this? (L-500)",
+                options: ["60,500", "62,000", "65000", "62,500"]
+            },
+            {
+                name: "q12",
+                type: "radio",
+                correctAnswer: "3",
+                points: 1,
+                questionText: "Ratan has Rs. 50,000 in his Demart account. Ratan wants to buy NIFTY 25100(24 JUL) CALL at Rs. 180. Current market price of NIFTY is 25090. How many lots he can Buy?",
+                options: ["4", "5", "3", "2"]
+            },
+            {
+                name: "q13",
+                type: "radio",
+                correctAnswer: "Thursday of last week",
+                points: 1,
+                questionText: "Bank Nifty 56800(JUL)CALL position will expire on",
+                options: ["Thursday of last week", "Friday of last week", "Thursday of first week", "Thursday of every week"]
+            },
+            {
+                name: "q14",
+                type: "radio",
+                correctAnswer: "go down",
+                points: 1,
+                questionText: "If customer has taken put position in option, then for profit it's should",
+                options: ["go up", "go down"]
+            },
+            {
+                name: "q15",
+                type: "radio",
+                correctAnswer: "100",
+                points: 1,
+                questionText: "Lot size of crude Oil",
+                options: ["1000", "500", "100", "30"]
+            },
+            {
+                name: "q16",
+                type: "radio",
+                correctAnswer: "No",
+                points: 1,
+                questionText: "Is it permissible to tell a customer that our recommendations will ensure that their losses are recovered.",
+                options: ["Yes", "No"]
+            },
+            {
+                name: "q17",
+                type: "radio",
+                correctAnswer: "No",
+                points: 1,
+                questionText: "Can Mr. A buy a HUL (Dec) future contract in the month of September?",
+                options: ["Yes", "No"]
+            },
+            {
+                name: "q18",
+                type: "radio",
+                correctAnswer: "Same day as date of payment but can be done in a couple of days in exceptional situations.",
+                points: 1,
+                questionText: "Service Agreement has to Sign within ___ days",
+                options: ["Mandatorily on same day as date of payment.", "Within 1 months’ time.", "Same day as date of payment but can be done in a couple of days in exceptional situations.", "After service tenure of client has ended."]
+            },
+            {
+                name: "q19",
+                type: "radio",
+                correctAnswer: "Initial Public Offer",
+                points: 1,
+                questionText: "The process of issuing share of a private company to the public is called as:",
+                options: ["Right issue", "Bonus issue", "Initial Public Offer", "Company issue"]
+            },
+            {
+                name: "q20",
+                type: "radio",
+                correctAnswer: "Deal Module",
+                points: 1,
+                questionText: "In which module you can send bank details to the customer",
+                options: ["Lead Module", "Deal Module", "Quotation Module", "Sales-Order Module."]
+            }
+        ];
+
+        const assessmentForm = document.getElementById('assessmentForm');
+        const submitButton = document.getElementById('submitButton');
+        const scoreResultDiv = document.getElementById('scoreResult');
+        const scoreValueSpan = document.getElementById('scoreValue');
+        const totalQuestionsSpan = document.getElementById('totalQuestions');
+        const feedbackMessageP = document.getElementById('feedbackMessage');
+        const whatsappTrainerButton = document.getElementById('whatsappTrainerButton');
+        const userNameInput = document.getElementById('userName');
+        const timerDisplay = document.getElementById('timer');
+
+        // Custom Alert Modal elements
+        const customAlertModal = document.getElementById('customAlertModal');
+        const customAlertMessage = document.getElementById('customAlertMessage');
+        const customAlertCloseButton = document.getElementById('customAlertCloseButton');
+
+        let timerInterval;
+        let timeLeft = 30 * 60; // 30 minutes in seconds
+        let quizSubmitted = false;
+
+        // Function to show custom alert
+        function showAlert(message) {
+            customAlertMessage.textContent = message;
+            customAlertModal.classList.remove('hidden');
+        }
+
+        // Event listener for custom alert close button
+        customAlertCloseButton.addEventListener('click', () => {
+            customAlertModal.classList.add('hidden');
+        });
+
+        // Function to update timer display
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // Function to start the timer
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (!quizSubmitted) { // Only auto-submit if not already submitted
+                        autoSubmitQuiz();
+                    }
+                }
+            }, 1000);
+        }
+
+        // Function to auto-submit the quiz when time runs out
+        function autoSubmitQuiz() {
+            showAlert("Time's up! Your assessment has been automatically submitted.");
+            // Programmatically trigger form submission
+            if (assessmentForm.requestSubmit) {
+                assessmentForm.requestSubmit();
+            } else {
+                submitButton.click();
+            }
+        }
+
+        // Function to disable all form inputs
+        function disableFormInputs() {
+            const formElements = assessmentForm.elements;
+            for (let i = 0; i < formElements.length; i++) {
+                formElements[i].disabled = true;
+            }
+            submitButton.classList.add('hidden'); // Hide submit button after submission
+        }
+
+        // Function to display feedback (correct/incorrect answers)
+        function displayFeedback(userAnswers) {
+            questions.forEach((q, index) => {
+                const questionBlock = document.querySelector(`.question-block:nth-of-type(${index + 1})`);
+                const optionsContainer = questionBlock.querySelector('.options-container');
+                const feedbackContainer = questionBlock.querySelector('.feedback-container');
+                const radios = optionsContainer.querySelectorAll(`input[name="${q.name}"]`);
+                const userAnswer = userAnswers[q.name];
+
+                let feedbackText = '';
+
+                radios.forEach(radio => {
+                    const label = radio.closest('label');
+                    if (radio.value === q.correctAnswer) {
+                        // Highlight correct answer
+                        label.classList.add('selected-correct', 'border');
+                        if (radio.value === userAnswer) {
+                            feedbackText = '<span class="correct-answer-feedback">Correct!</span>';
+                        } else {
+                            feedbackText += `<span class="correct-answer-feedback">Correct Answer: ${q.correctAnswer}</span>`;
+                        }
+                    } else if (radio.value === userAnswer && radio.value !== q.correctAnswer) {
+                        // Highlight user's incorrect answer
+                        label.classList.add('selected-incorrect', 'border');
+                        feedbackText = '<span class="incorrect-answer-feedback">Incorrect.</span>';
+                        feedbackText += `<br><span class="correct-answer-feedback">Correct Answer: ${q.correctAnswer}</span>`;
+                    }
+                    // Disable all radio buttons
+                    radio.disabled = true;
+                });
+
+                feedbackContainer.innerHTML = feedbackText;
+            });
+        }
+
+        // Set the total possible score (now based on 1 point per question)
+        const totalPossibleScore = questions.length; // Total number of questions
+        totalQuestionsSpan.textContent = totalPossibleScore;
+
+        // Start the timer when the page loads
+        window.onload = startTimer;
+
+        assessmentForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // If already submitted (e.g., by auto-submit), prevent re-processing
+            if (quizSubmitted) {
+                return;
+            }
+            quizSubmitted = true; // Mark as submitted
+
+            clearInterval(timerInterval); // Stop the timer
+
+            const formData = new FormData(assessmentForm);
+            let score = 0;
+            let allAnswered = true;
+            const userAnswers = {}; // To store user's answers for WhatsApp
+
+            // Validate user name
+            const userName = userNameInput.value.trim();
+            if (!userName) {
+                showAlert("Please enter your name before submitting the assessment.");
+                quizSubmitted = false; // Allow re-submission if name is missing
+                startTimer(); // Restart timer if submission was blocked by validation
+                return;
+            }
+            userAnswers.userName = userName;
+
+            questions.forEach(q => {
+                let userAnswer = formData.get(q.name);
+
+                userAnswers[q.name] = userAnswer; // Store for WhatsApp
+
+                if (userAnswer === null) { // For radio buttons, null means not selected
+                    allAnswered = false;
+                } else {
+                    if (userAnswer === q.correctAnswer) {
+                        score += q.points;
+                    }
+                }
+            });
+
+            if (!allAnswered) {
+                showAlert("Please answer all questions before submitting.");
+                quizSubmitted = false; // Allow re-submission if not all questions are answered
+                startTimer(); // Restart timer if submission was blocked by validation
+                return;
+            }
+
+            // Disable all inputs and hide submit button immediately after successful submission
+            disableFormInputs();
+
+            // Display score
+            scoreValueSpan.textContent = score;
+            scoreResultDiv.classList.remove('hidden'); // Show the score section
+
+            // Provide feedback based on score
+            let feedback = '';
+            if (score === totalPossibleScore) {
+                feedback = "Excellent! You got a perfect score!";
+            } else if (score >= totalPossibleScore * 0.7) { // 70% or more (14 out of 20)
+                feedback = "Great job! You have a good understanding.";
+            } else {
+                feedback = "Keep practicing! There's room for improvement.";
+            }
+            feedbackMessageP.textContent = feedback;
+
+            // Display correct/incorrect feedback for each question
+            displayFeedback(userAnswers);
+
+            // Appreciation popup if score > 59% (i.e., 12 or more correct answers out of 20)
+            if (score > (totalPossibleScore * 0.59)) {
+                showAlert("Nice progress!");
+            }
+
+            // Prepare WhatsApp content
+            const trainerPhoneNumber = "8250547520"; // Trainer's WhatsApp number
+            let whatsappBody = `Hello Trainer,\n\n`;
+            whatsappBody += `This is ${userName}. I have completed the assessment.\n`;
+            whatsappBody += `My score is: ${score} out of ${totalPossibleScore}.\n\n`;
+            whatsappBody += `Here are my answers:\n\n`;
+            questions.forEach((q, index) => {
+                whatsappBody += `${index + 1}. ${q.questionText}\n`;
+                whatsappBody += `   Your answer: ${userAnswers[q.name] || 'Not answered'}\n`; // Handle not answered case for WhatsApp
+                whatsappBody += `   Correct answer: ${q.correctAnswer}\n\n`;
+            });
+            whatsappBody += `Best regards,\n${userName}`;
+            const whatsappLink = `https://wa.me/${trainerPhoneNumber}?text=${encodeURIComponent(whatsappBody)}`;
+
+            whatsappTrainerButton.onclick = () => {
+                window.open(whatsappLink, '_blank'); // Open WhatsApp link in a new tab
+            };
+
+            // Scroll to the result section
+            scoreResultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    </script>
+</body>
+</html>
