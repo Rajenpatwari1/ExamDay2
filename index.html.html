@@ -9,27 +9,30 @@
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Custom baby pink background with gradient animation */
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #FDDDE6, #FFC0CB, #FDDDE6); /* Soft pink to slightly darker pink */
-            background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite; /* Slower animation */
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 2rem 1rem;
-            box-sizing: border-box;
-            color: #1A202C; /* Dark gray for general text */
-            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        /* Define custom colors as CSS variables or direct classes for Tailwind compatibility */
+        :root {
+            --dark-black-base: #1a202c; /* Original dark background */
+            --dark-black-light: #252932; /* Deep dark background for main section cards */
+            --dark-black-lighter: #2c313c; /* Darker grey, used in gradients for career path and inner cards */
+            --dark-black-lightest: #3a404a; /* Dark grey, used in gradients for career path and inner cards */
+            --baby-pink: #fbcfe8; /* Pink-300 */
+            --lighter-baby-pink: #FFB3C6; /* A slightly lighter pink for gradients */
+            --off-white-text: #e2e8f0; /* Off-white for headings and text */
+            --light-grey-text: #cbd5e0; /* Light grey for paragraphs */
         }
 
-        /* Gradient animation keyframes */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Custom background: Dark Black */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+            background-color: var(--dark-black-base);
+            padding: 2.5rem 1.5rem; /* Increased padding */
+            box-sizing: border-box;
+            color: var(--off-white-text); /* Off-white for general text on dark background */
+            display: flex; /* Added for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            min-height: 100vh; /* Ensure it takes full viewport height */
         }
 
         /* Custom scrollbar for better aesthetics */
@@ -37,34 +40,37 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #e0e0e0;
+            background: var(--dark-black-lightest); /* Darker track */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #888;
+            background: var(--baby-pink); /* Baby Pink thumb */
             border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+            background: var(--lighter-baby-pink); /* Slightly lighter pink on hover */
         }
 
         /* Custom styles for the main container */
         .container {
-            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            background-color: var(--dark-black-light); /* Deep dark background for the main card */
             border-radius: 1.5rem; /* More rounded corners */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Softer shadow */
-            padding: 2.5rem;
-            max-width: 900px; /* Increased max-width */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5); /* Stronger shadow */
+            padding: 3rem; /* Increased padding */
+            max-width: 950px; /* Increased max-width for more content space */
             width: 100%;
-            animation: fadeInScale 0.7s ease-out forwards; /* Initial fade-in animation */
+            animation: fadeInScale 0.8s ease-out forwards; /* Initial fade-in animation */
             position: relative; /* For z-index of popup */
+            color: var(--off-white-text); /* Off-white text inside the dark container */
+            border: 2px solid transparent;
+            border-image: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)) 1; /* Baby Pink gradient border */
         }
 
         /* Fade-in and scale animation for the main container */
         @keyframes fadeInScale {
             from {
                 opacity: 0;
-                transform: scale(0.95) translateY(20px);
+                transform: scale(0.95) translateY(30px);
             }
             to {
                 opacity: 1;
@@ -78,57 +84,56 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            font-weight: 700; /* Bolder text */
+            letter-spacing: 0.05em; /* Slightly spaced out letters */
         }
         .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px); /* Lift effect on hover */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* Slightly softer shadow on hover */
         }
         .btn-primary:active, .btn-secondary:active {
             transform: translateY(0); /* Press effect on click */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow on press */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Softer shadow on press */
         }
         /* Ripple effect on buttons */
-        .btn-primary::after, .btn-secondary::after {
-            content: '';
+        .ripple {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            opacity: 0;
-            transform: scale(0) translate(-50%, -50%);
-            transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
-            z-index: -1;
+            transform: scale(0);
+            animation: ripple-effect 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.7); /* White ripple */
+            pointer-events: none; /* Make sure it doesn't interfere with clicks */
         }
-        .btn-primary:active::after, .btn-secondary:active::after {
-            width: 200%;
-            height: 200%;
-            opacity: 1;
-            transition: 0s; /* Reset transition on active to make it instant */
+        @keyframes ripple-effect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
 
         /* Styles for input fields */
         input[type="text"], input[type="email"] {
             transition: all 0.3s ease;
-            border-radius: 0.5rem;
-            border: 1px solid #CBD5E0; /* Light gray border */
+            border-radius: 0.75rem; /* More rounded inputs */
+            border: 1px solid var(--dark-black-lightest); /* Dark grey border */
+            padding: 0.85rem 1.25rem; /* Slightly more padding */
+            background-color: var(--dark-black-lighter); /* Darker grey input background */
+            color: var(--off-white-text); /* Off-white text */
         }
         input[type="text"]:focus, input[type="email"]:focus {
-            border-color: #FF69B4; /* Hot pink on focus */
-            box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.3); /* Soft pink glow on focus */
+            border-color: var(--baby-pink); /* Baby Pink on focus */
+            box-shadow: 0 0 0 4px rgba(255, 192, 203, 0.3); /* Soft Baby Pink glow on focus */
             outline: none;
         }
 
         /* Styles for radio buttons */
         input[type="radio"] {
-            accent-color: #FF69B4; /* Hot pink for selected radio button */
-            transform: scale(1.1); /* Slightly larger radio button */
+            accent-color: var(--baby-pink); /* Baby Pink for selected radio button */
+            transform: scale(1.2); /* Slightly larger radio button */
             transition: transform 0.2s ease;
         }
         input[type="radio"]:hover {
-            transform: scale(1.2);
+            transform: scale(1.3);
         }
 
         /* Alert/Popup styling */
@@ -138,11 +143,11 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0); /* Start scaled down */
             transform-origin: center;
-            background-color: #4CAF50; /* Green for success */
-            color: white;
-            padding: 1.5rem 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background-color: var(--dark-black-light); /* Deep dark background for alert */
+            color: var(--baby-pink); /* Pink-300 text */
+            padding: 1.8rem 2.5rem; /* Larger padding */
+            border-radius: 1.25rem; /* More rounded */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             z-index: 1000;
             opacity: 0;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Springy animation */
@@ -150,7 +155,9 @@
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem; /* Increased gap */
+            font-size: 1.2rem; /* Larger font size */
+            border: 2px solid var(--baby-pink); /* Pink-300 border */
         }
         .alert-popup.show {
             transform: translate(-50%, -50%) scale(1); /* Scale up to normal size */
@@ -159,12 +166,12 @@
         .alert-popup .close-btn {
             background: none;
             border: none;
-            color: white;
-            font-size: 1.5rem;
+            color: var(--baby-pink); /* Pink-300 close button */
+            font-size: 1.8rem; /* Larger close button */
             cursor: pointer;
             position: absolute;
-            top: 0.5rem;
-            right: 0.8rem;
+            top: 0.8rem;
+            right: 1rem;
             transition: transform 0.2s ease;
         }
         .alert-popup .close-btn:hover {
@@ -174,8 +181,8 @@
         /* Animation for score result section */
         #scoreResultDiv {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(30px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
         }
         #scoreResultDiv.show {
             opacity: 1;
@@ -184,94 +191,220 @@
 
         /* Custom styling for the WhatsApp button */
         #whatsappTrainerButton {
-            background-color: #25D366; /* WhatsApp green */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
+            background: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)); /* Baby Pink gradient */
+            color: var(--dark-black-base); /* Dark text for contrast */
+            padding: 0.9rem 1.8rem; /* Larger padding */
+            border-radius: 0.9rem; /* More rounded */
+            font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
             transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         }
         #whatsappTrainerButton:hover {
-            background-color: #1DA851; /* Darker green on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(to right, var(--lighter-baby-pink), var(--baby-pink)); /* Darker pink on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(255, 192, 203, 0.4);
         }
         #whatsappTrainerButton:active {
             transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(37, 211, 102, 0.2);
+            box-shadow: 0 4px 8px rgba(255, 192, 203, 0.2);
         }
 
         /* Timer styling */
         #timerDisplay {
-            font-size: 1.8rem;
+            font-size: 1.8rem; /* Smaller font size */
             font-weight: bold;
-            color: #D97706; /* Amber color */
-            background-color: #FFFBEB; /* Light yellow background */
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            border: 2px solid #FBBF24; /* Yellow border */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 1.5rem;
+            color: var(--dark-black-base); /* Dark text for contrast */
+            background: linear-gradient(45deg, var(--baby-pink), var(--lighter-baby-pink)); /* Baby Pink to Lighter Baby Pink gradient */
+            padding: 0.8rem 1.5rem; /* Smaller padding */
+            border-radius: 1.2rem; /* Adjusted border-radius */
+            border: 3px solid var(--baby-pink); /* Baby Pink border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Slightly softer shadow */
+            margin-bottom: 1.5rem; /* Adjusted margin */
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: 0.8rem; /* Smaller gap */
+            animation: pulsePink 2s infinite alternate; /* Gentle pulsing animation */
         }
         #timerDisplay.time-critical {
-            color: #DC2626; /* Red for critical time */
-            border-color: #EF4444;
-            animation: pulseRed 1s infinite alternate;
+            color: var(--dark-black-base); /* Dark text */
+            background: linear-gradient(45deg, var(--lighter-baby-pink), var(--baby-pink)); /* Lighter Baby Pink to Baby Pink gradient for critical */
+            border-color: var(--baby-pink); /* Baby Pink border */
+            animation: pulseCriticalPink 0.8s infinite alternate; /* Faster pulsing when critical */
         }
 
-        @keyframes pulseRed {
-            from { transform: scale(1); }
-            to { transform: scale(1.03); }
+        @keyframes pulsePink {
+            from { transform: scale(1); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+            to { transform: scale(1.01); box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25); }
         }
+
+        @keyframes pulseCriticalPink {
+            from { transform: scale(1); background: linear-gradient(45deg, var(--lighter-baby-pink), var(--baby-pink)); }
+            to { transform: scale(1.02); background: linear-gradient(45deg, var(--baby-pink), var(--lighter-baby-pink)); }
+        }
+
+        /* Styling for the Company Name Heading */
+        .company-name-heading {
+            position: relative;
+            padding-bottom: 0.75rem; /* Space for the underline */
+            margin-bottom: 2rem; /* More space below */
+            font-size: 2.5rem; /* Larger font size for prominence */
+            font-weight: 800; /* Extra bold */
+            color: var(--off-white-text); /* Off-white text color for company name */
+            text-shadow: 0 0 10px rgba(255, 192, 203, 0.2); /* Subtle pink glow */
+        }
+
+        .company-name-heading::after {
+            content: '';
+            position: absolute;
+            left: 50%; /* Center the underline */
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 100px; /* Length of the underline */
+            height: 5px; /* Thickness of the underline */
+            background: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)); /* Baby Pink gradient underline */
+            border-radius: 2.5px; /* Rounded ends for the underline */
+        }
+
+        /* Styling for question cards */
+        .question-card {
+            background: linear-gradient(to bottom, var(--dark-black-lighter), var(--dark-black-light)); /* Subtle dark gradient for question cards */
+            border: 1px solid rgba(255, 192, 203, 0.3); /* Slightly more visible pink border */
+            border-radius: 1rem; /* Consistent rounded corners */
+            padding: 1.5rem; /* Increased padding */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            color: var(--off-white-text); /* Off-white text for questions */
+        }
+        .question-card label {
+            color: var(--light-grey-text); /* Slightly lighter grey for options */
+        }
+        .question-card label:hover {
+            background-color: var(--dark-black-lightest); /* Darker grey hover background for options */
+        }
+
+        /* Score result section styling */
+        #scoreResultDiv {
+            background: linear-gradient(to right, var(--dark-black-lighter), var(--dark-black-light)); /* Darker gradient background */
+            border: 1px solid rgba(255, 192, 203, 0.1); /* Subtle pink border */
+            border-radius: 1rem; /* Rounded corners */
+            padding: 2.5rem; /* Increased padding */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4); /* More pronounced shadow */
+            color: var(--off-white-text); /* Off-white text */
+        }
+        #scoreResultDiv h2 {
+            color: var(--baby-pink); /* Baby Pink for score heading */
+            text-shadow: 0 0 10px rgba(255, 192, 203, 0.2); /* Subtle glow */
+        }
+        #scoreResultDiv p {
+            color: var(--lighter-baby-pink); /* Lighter Baby Pink for score display */
+        }
+        #scoreResultDiv .review-item {
+            background-color: var(--dark-black-lightest); /* Darker grey background for review items */
+            border: 1px solid rgba(255, 192, 203, 0.4); /* Baby Pink border */
+            color: var(--off-white-text); /* Off-white text */
+        }
+        /* Correct and Incorrect review items now use pink borders and dark backgrounds */
+        #scoreResultDiv .review-item.correct {
+            border-color: var(--baby-pink); /* Baby Pink border for correct */
+            background-color: var(--dark-black-lighter); /* Slightly different dark for correct */
+        }
+        #scoreResultDiv .review-item.incorrect {
+            border-color: var(--lighter-baby-pink); /* Lighter Baby Pink border for incorrect */
+            background-color: var(--dark-black-lighter); /* Slightly different dark for incorrect */
+        }
+        /* Ensure specific text within review items is visible and matches theme */
+        #scoreResultDiv .review-item p,
+        #scoreResultDiv .review-item span {
+            color: var(--off-white-text); /* Ensure text is off-white */
+        }
+        #scoreResultDiv .review-item span.correct-answer-text { /* Custom class for correct answer text */
+            color: var(--baby-pink); /* Now Baby Pink */
+        }
+        #scoreResultDiv .review-item span.incorrect-answer-text { /* Custom class for incorrect answer text */
+            color: var(--lighter-baby-pink); /* Now Lighter Baby Pink */
+        }
+
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
-                padding: 1.5rem;
-                margin: 1rem;
+                padding: 2rem;
+                margin: 0.5rem;
             }
             body {
                 padding: 1rem 0.5rem;
             }
             #timerDisplay {
-                font-size: 1.5rem;
-                padding: 0.6rem 1.2rem;
+                font-size: 1.5rem; /* Even smaller on mobile */
+                padding: 0.6rem 1rem;
+                gap: 0.6rem;
+            }
+            h1 {
+                font-size: 2.5rem; /* Smaller heading on mobile */
+            }
+            .company-name-heading {
+                font-size: 1.8rem; /* Smaller company name on mobile */
+            }
+            .company-name-heading::after {
+                width: 80px; /* Shorter underline on mobile */
+            }
+            .text-xl {
+                font-size: 1.1rem;
+            }
+            .text-lg {
+                font-size: 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .text-5xl {
+                font-size: 3rem; /* Smaller score on small screens */
+            }
+            .btn-primary, .btn-secondary {
+                padding: 0.75rem 1.25rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-4xl font-extrabold text-center mb-2 text-pink-600 flex items-center justify-center gap-3">
-            <i class="fas fa-brain text-pink-500"></i> Individual Assessment
+        <!-- Company Name Styling - Moved to the very top -->
+        <h2 class="text-center company-name-heading">
+            OnePaper Research Analysts Private Limited
+        </h2>
+
+        <h1 class="text-4xl font-extrabold text-center mb-2 flex items-center justify-center gap-3">
+            <i class="fas fa-brain" style="color: var(--baby-pink);"></i> Individual Assessment
         </h1>
-        <p class="text-xl text-center mb-1 text-gray-700">Market Knowledge</p>
-        <!-- Enhanced Company Name Styling -->
-        <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">OnePaper Research Analysts Private Limited</h2>
+        <p class="text-xl text-center mb-1" style="color: var(--light-grey-text);">Market Knowledge</p>
 
 
         <!-- User Information Section -->
-        <div id="userInfoSection" class="bg-pink-50 p-6 rounded-lg shadow-inner mb-8">
-            <h2 class="text-2xl font-semibold mb-4 text-pink-700">Your Details</h2>
+        <div id="userInfoSection" class="p-6 rounded-lg shadow-inner mb-8" style="background-color: var(--dark-black-lighter);">
+            <h2 class="text-2xl font-semibold mb-4" style="color: var(--baby-pink);">Your Details</h2>
             <div class="mb-4">
-                <label for="userName" class="block text-gray-700 text-lg font-medium mb-2">Your Name:</label>
+                <label for="userName" class="block text-lg font-medium mb-2" style="color: var(--light-grey-text);">Your Name:</label>
                 <input type="text" id="userName" name="userName" placeholder="Enter your full name"
-                       class="w-full p-3 border rounded-lg focus:ring-pink-500 focus:border-pink-500 text-gray-800" required>
+                       class="w-full p-3 border rounded-lg focus:outline-none focus:ring-4"
+                       style="border-color: var(--dark-black-lightest); background-color: var(--dark-black-lighter); color: var(--off-white-text); --tw-ring-color: rgba(255, 192, 203, 0.3);" required>
             </div>
             <div class="mb-4">
-                <label for="userEmail" class="block text-gray-700 text-lg font-medium mb-2">Your Email:</label>
+                <label for="userEmail" class="block text-lg font-medium mb-2" style="color: var(--light-grey-text);">Your Email:</label>
                 <input type="email" id="userEmail" name="userEmail" placeholder="Enter your email address"
-                       class="w-full p-3 border rounded-lg focus:ring-pink-500 focus:border-pink-500 text-gray-800" required>
+                       class="w-full p-3 border rounded-lg focus:outline-none focus:ring-4"
+                       style="border-color: var(--dark-black-lightest); background-color: var(--dark-black-lighter); color: var(--off-white-text); --tw-ring-color: rgba(255, 192, 203, 0.3);" required>
             </div>
             <button id="startAssessmentButton"
-                    class="btn-primary w-full bg-pink-600 text-white py-3 rounded-lg text-xl font-bold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                    class="btn-primary w-full py-3 rounded-lg text-xl font-bold focus:outline-none focus:ring-4"
+                    style="background: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)); color: var(--dark-black-base); --tw-ring-color: rgba(255, 192, 203, 0.3);">
                 Start Assessment <i class="fas fa-play ml-2"></i>
             </button>
         </div>
@@ -280,7 +413,7 @@
         <div id="assessmentSection" class="hidden">
             <!-- Timer Display -->
             <div id="timerDisplay" class="hidden">
-                <i class="fas fa-clock"></i> <span id="timeRemaining">20:00</span>
+                <i class="fas fa-hourglass-half"></i> <span id="timeRemaining">20:00</span>
             </div>
 
             <form id="assessmentForm" class="space-y-8">
@@ -289,28 +422,32 @@
 
             <div class="flex justify-between mt-8">
                 <button type="button" id="prevQuestionButton"
-                        class="btn-secondary bg-gray-300 text-gray-800 py-3 px-6 rounded-lg text-xl font-bold hover:bg-gray-400 focus:outline-none focus:ring-4 focus:ring-gray-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        class="btn-secondary py-3 px-6 rounded-lg text-xl font-bold focus:outline-none focus:ring-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                        style="background-color: var(--dark-black-lightest); color: var(--off-white-text); --tw-ring-color: rgba(255, 192, 203, 0.3);">
                     <i class="fas fa-arrow-left mr-2"></i> Previous
                 </button>
                 <button type="button" id="nextQuestionButton"
-                        class="btn-primary bg-pink-600 text-white py-3 px-6 rounded-lg text-xl font-bold hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                        class="btn-primary py-3 px-6 rounded-lg text-xl font-bold focus:outline-none focus:ring-4"
+                        style="background: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)); color: var(--dark-black-base); --tw-ring-color: rgba(255, 192, 203, 0.3);">
                     Next <i class="fas fa-arrow-right ml-2"></i>
                 </button>
                 <button type="submit" id="submitAssessmentButton"
-                        class="btn-primary bg-green-600 text-white py-3 px-6 rounded-lg text-xl font-bold hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 hidden">
+                        class="btn-primary py-3 px-6 rounded-lg text-xl font-bold focus:outline-none focus:ring-4 hidden"
+                        style="background: linear-gradient(to right, var(--baby-pink), var(--lighter-baby-pink)); color: var(--dark-black-base); --tw-ring-color: rgba(255, 192, 203, 0.3);">
                     Submit Assessment <i class="fas fa-paper-plane ml-2"></i>
                 </button>
             </div>
         </div>
 
         <!-- Score Result Section (Initially hidden) -->
-        <div id="scoreResultDiv" class="hidden bg-green-50 p-6 rounded-lg shadow-inner mt-8 text-center">
-            <h2 class="text-3xl font-bold mb-4 text-green-700 flex items-center justify-center gap-3">
-                <i class="fas fa-award text-green-600"></i> Your Score
+        <div id="scoreResultDiv" class="hidden p-6 rounded-lg shadow-inner mt-8 text-center"
+             style="background: linear-gradient(to right, var(--dark-black-lighter), var(--dark-black-base)); border: 1px solid rgba(255, 192, 203, 0.1);">
+            <h2 class="text-3xl font-bold mb-4 flex items-center justify-center gap-3" style="color: var(--baby-pink);">
+                <i class="fas fa-award" style="color: var(--baby-pink);"></i> Your Score
             </h2>
-            <p class="text-5xl font-extrabold text-green-800 mb-6" id="scoreDisplay">0/0</p>
+            <p class="text-5xl font-extrabold mb-6" style="color: var(--lighter-baby-pink);" id="scoreDisplay">0/0</p>
             <div class="text-left mb-6">
-                <h3 class="text-2xl font-semibold mb-3 text-gray-800">Review Your Answers:</h3>
+                <h3 class="text-2xl font-semibold mb-3" style="color: var(--baby-pink);">Review Your Answers:</h3>
                 <div id="answerReview" class="space-y-4">
                     <!-- Reviewed answers will be inserted here -->
                 </div>
@@ -327,7 +464,7 @@
         <i class="fas fa-check-circle text-3xl"></i>
         <span id="alertMessage" class="text-xl"></span>
         <button class="close-btn" onclick="hideAlert()">&times;</button>
-    </div>
+    </div >
 
     <script>
         // Array of assessment questions (Updated to 20 questions from SET-2.docx)
@@ -419,7 +556,7 @@
                 correctAnswer: "long position and short position in both calls and puts"
             },
             {
-                questionText: "Buy ITC from 1200 with SL and Target of 1%? What is the SL and Target",
+                questionText: "Buy ITC from 1200 with SL and Target of 1%?\nWhat is the SL and Target",
                 name: "q9",
                 options: [
                     "Target 1212, SL 1188",
@@ -441,7 +578,7 @@
                 correctAnswer: "buy stock futures"
             },
             {
-                questionText: "A Person wants to Buy 5 lot RELIANCE 2500 CALL, MAR contract at Rs.25. What is the investment require for this? (L-500)",
+                questionText: "A Person wants to Buy 5 lot RELIANCE 2500 CALL, MAR contract at Rs.25.\nWhat is the investment require for this? (L-500)",
                 name: "q11",
                 options: [
                     "60,500",
@@ -452,7 +589,7 @@
                 correctAnswer: "62,500"
             },
             {
-                questionText: "Ratan has Rs. 50,000 in his Demart account. Ratan wants to buy NIFTY 25100(24 JUL) CALL at Rs. 180. Current market price of NIFTY is 25090. How many lots he can Buy?",
+                questionText: "Ratan has Rs. 50,000 in his Demart account. Ratan wants to buy NIFTY 25100(24 JUL) CALL at Rs. 180.Current market price of NIFTY is 25090.Howmany lots he can Buy?",
                 name: "q12",
                 options: [
                     "4",
@@ -570,8 +707,8 @@
         const alertMessage = document.getElementById('alertMessage');
 
         let currentQuestionIndex = 0;
-        let timerInterval;
         let timeLeft = 20 * 60; // Changed to 20 minutes in seconds
+        let timerInterval;
         const userAnswers = {}; // Store user answers for all questions
 
         // Function to show custom alert
@@ -624,14 +761,15 @@
             assessmentForm.innerHTML = ''; // Clear previous question
             const q = questions[currentQuestionIndex];
             const questionDiv = document.createElement('div');
-            questionDiv.className = 'bg-white p-6 rounded-lg shadow-md border border-pink-100';
+            // Apply new question card styling
+            questionDiv.className = 'question-card p-6 rounded-lg shadow-md mb-8';
             questionDiv.innerHTML = `
-                <p class="text-xl font-semibold mb-4 text-gray-800">${currentQuestionIndex + 1}. ${q.questionText}</p>
+                <p class="text-xl font-semibold mb-4" style="color: var(--off-white-text);">${currentQuestionIndex + 1}. ${q.questionText}</p>
                 <div class="space-y-3">
                     ${q.options.map(option => `
-                        <label class="flex items-center p-3 rounded-md cursor-pointer hover:bg-pink-50 transition-colors duration-200">
-                            <input type="radio" name="${q.name}" value="${option}" class="form-radio h-5 w-5 text-pink-600 mr-3" ${userAnswers[q.name] === option ? 'checked' : ''}>
-                            <span class="text-gray-700 text-lg">${option}</span>
+                        <label class="flex items-center p-3 rounded-md cursor-pointer transition-colors duration-200" style="color: var(--light-grey-text); background-color: var(--dark-black-lightest);">
+                            <input type="radio" name="${q.name}" value="${option}" class="form-radio h-5 w-5 mr-3" style="accent-color: var(--baby-pink);" ${userAnswers[q.name] === option ? 'checked' : ''}>
+                            <span class="text-lg">${option}</span>
                         </label>
                     `).join('')}
                 </div>
@@ -711,7 +849,9 @@
 
             if (!userName || !userEmail) {
                 showAlert("Please fill in your name and email before submitting.");
-                return;
+                // If this happens on auto-submit, we still want to proceed to score display.
+                // If it happens on manual submit, we return.
+                if (!isAutoSubmit) return;
             }
 
             // Check if all questions are answered for manual submission
@@ -722,10 +862,14 @@
                 if (selectedOption) {
                     userAnswers[currentQuestion.name] = selectedOption.value;
                 } else {
+                    // If the user is on the last question and hasn't answered it, this ensures it's not marked as answered.
+                    // If they had an answer and then unselected it, this removes it.
                     delete userAnswers[currentQuestion.name];
                 }
 
-                const allAnswered = questions.every(q => userAnswers.hasOwnProperty(q.name) && userAnswers[q.name] !== 'Not answered');
+                // Check if all questions have an entry in userAnswers
+                const allAnswered = questions.every(q => userAnswers.hasOwnProperty(q.name));
+
                 if (!allAnswered) {
                     showAlert("Please answer all questions before submitting.");
                     // Re-enable timer if it was stopped for manual submission attempt
@@ -760,19 +904,21 @@
             // Review answers
             answerReview.innerHTML = ''; // Clear previous review
             questions.forEach((q, index) => {
-                const userAnswer = userAnswers[q.name] || 'Not answered'; // Handle genuinely unanswered questions
+                // Display 'Not answered' if the user did not select an.
+                const userAnswer = userAnswers.hasOwnProperty(q.name) ? userAnswers[q.name] : 'Not answered';
                 const isCorrect = userAnswer === q.correctAnswer;
                 const reviewItem = document.createElement('div');
-                reviewItem.className = `p-4 rounded-lg ${isCorrect ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`;
+                // Apply new review item styling
+                reviewItem.className = `review-item p-4 rounded-lg ${isCorrect ? 'correct' : 'incorrect'}`;
                 reviewItem.innerHTML = `
-                    <p class="font-medium text-gray-800">${index + 1}. ${q.questionText}</p>
-                    <p class="text-gray-700 ml-4">Your Answer: <span class="${isCorrect ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}">${userAnswer}</span></p>
-                    <p class="text-gray-700 ml-4">Correct Answer: <span class="text-green-600 font-semibold">${q.correctAnswer}</span></p>
+                    <p class="font-medium" style="color: var(--off-white-text);">${index + 1}. ${q.questionText}</p>
+                    <p class="ml-4" style="color: var(--light-grey-text);">Your Answer: <span class="${isCorrect ? 'correct-answer-text' : 'incorrect-answer-text'} font-semibold">${userAnswer}</span></p>
+                    <p class="ml-4" style="color: var(--light-grey-text);">Correct Answer: <span class="correct-answer-text font-semibold">${q.correctAnswer}</span></p>
                 `;
                 answerReview.appendChild(reviewItem);
             });
 
-            // Appreciation popup if score > 59% (i.e., 12 or more correct answers out of 20)
+            // Appreciation popup if score > 59% (i.e., 6 or more correct answers out of 10)
             if (score > (totalPossibleScore * 0.59)) {
                 showAlert("Nice progress!");
             }
@@ -785,7 +931,8 @@
             whatsappBody += `Here are my answers:\n\n`;
             questions.forEach((q, index) => {
                 whatsappBody += `${index + 1}. ${q.questionText}\n`;
-                whatsappBody += `   Your answer: ${userAnswers[q.name] || 'Not answered'}\n`; // Handle not answered case for WhatsApp
+                // Ensure 'Not answered' is correctly reflected in WhatsApp message
+                whatsappBody += `   Your answer: ${userAnswers.hasOwnProperty(q.name) ? userAnswers[q.name] : 'Not answered'}\n`;
                 whatsappBody += `   Correct answer: ${q.correctAnswer}\n\n`;
             });
             whatsappBody += `Best regards,\n${userName}`;
@@ -827,27 +974,6 @@
                 });
             });
         });
-        // Add a ripple effect style (if not already present in the main CSS)
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .ripple {
-                position: absolute;
-                border-radius: 50%;
-                transform: scale(0);
-                animation: ripple-effect 0.6s linear;
-                background-color: rgba(255, 255, 255, 0.7); /* White ripple */
-                pointer-events: none; /* Make sure it doesn't interfere with clicks */
-            }
-            @keyframes ripple-effect {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-
     </script>
 </body>
 </html>
